@@ -65,7 +65,6 @@ class TextSuggestionState(rx.State):
         elif key in ["ArrowUp", "ArrowLeft"] and self.show_suggestions:
             self.active_suggestion_index = max(self.active_suggestion_index - 1, 0)
         elif key in ["Enter", "Tab"] and self.show_suggestions:
-            rx.event.prevent_default()
             self.select_suggestion(self.suggestions[self.active_suggestion_index])
         elif key == "Escape":
             self.show_suggestions = False
