@@ -65,6 +65,7 @@ class TextSuggestionState(rx.State):
         elif key in ["ArrowUp", "ArrowLeft"] and self.show_suggestions:
             self.active_suggestion_index = max(self.active_suggestion_index - 1, 0)
         elif key in ["Enter", "Tab"] and self.show_suggestions:
+            rx.event.prevent_default()ß
             self.select_suggestion(self.suggestions[self.active_suggestion_index])
         elif key == "Escape":
             self.show_suggestions = False
@@ -114,9 +115,9 @@ def text_input_with_suggestions():
         rx.vstack(
             rx.text_area(
                 value=TextSuggestionState.current_text,
+                on_key_down=TextSuggestionState.handle_key_down,
                 on_change=TextSuggestionState.set_current_text,
                 placeholder="Начните вводить текст...",
-                on_key_down=TextSuggestionState.handle_key_down,
                 width="100%",
                 min_height="100px",
             ),
